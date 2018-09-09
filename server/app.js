@@ -1,13 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
+const path = require("path");
 
 const app = express();
+app.use(express.static('build'));
+
+const base = path.resolve('.');
+const index = base + '/build/index.html';
 
 
-app.get('/', function (req, res) {
-    res.json({message: 'OI, WUTH'});
+app.get('/test', function (req, res) {
+    res.sendFile(index);
 });
 
-console.log("Listening on port 9000");
-app.listen(process.env.PORT || 3000);
+
+const port = process.env.PORT || 3000;
+
+console.log("Listening on port: " + port);
+app.listen(port);
