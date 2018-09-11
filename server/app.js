@@ -75,7 +75,7 @@ app.post("/login", (req, res) => {
                         if (rows[0].password === sha256(req.body.password, rows[0].salt)) {
                             console.log("Attempt was successful");
                             let token = jwt.sign({ username: req.body.username }, privateKey, {
-                                expiresInt: 60  // Expires in 1 minute
+                                expiresIn: 60  // Expires in 1 minute
                             });
                             res.json({ jwt: token });
                         } else {
