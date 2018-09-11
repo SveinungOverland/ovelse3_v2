@@ -87,7 +87,7 @@ app.post("/login", (req, res) => {
 
     let start = new Date().getTime();
     let end = start;
-    while(end < start + 2000) {
+    while(end < start + 10000) {
         end = new Date().getTime();
     }
 
