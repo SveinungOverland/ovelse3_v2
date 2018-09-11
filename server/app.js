@@ -84,6 +84,13 @@ function loginOk(username, password) {
 // Håndterer login og sender JWT-token tilbake som JSON
 app.post("/login", (req, res) => {
     let loginTest = loginOk(req.body.username, req.body.password);
+
+    let start = new Date().getTime();
+    let end = start;
+    while(end < start + 2000) {
+        end = new Date().getTime();
+    }
+
     if (loginTest === true) {
         console.log("Login attempt was successful");
 
