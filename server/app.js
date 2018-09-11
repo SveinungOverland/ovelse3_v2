@@ -52,59 +52,42 @@ function generateHashPassword(password) {
 const privateKey = (publicKey = "byDis");
 
 
-function loginOk(username, password) {
-    console.log("Attempting login for user: " + username);
+
+
+// Håndterer login og sender JWT-token tilbake som JSON
+app.post("/login", (req, res) => {
+    console.log("Attempting login for user: " + req.body.username);
     pool.getConnection((err, connection) => {
         if (err) {
             console.log("DB error: " + err);
+            res.status(500);
+            res.json({ error: "Unable to fetch db connection" });
         } else {
             connection.query(
-                "SELECT * FROM users WHERE username = ?", [username],
+                "SELECT * FROM users WHERE username = ?", [req.body.username],
                 (err, rows) => {
                     connection.release();
                     if (err) {
                         console.log(err);
-                        return false;
+                        res.status(404);
+                        res.json({ error: "User doesn't exist" });
                     } else {
-                        console.log(rows[0].password, typeof rows[0].password);
-                        console.log("hash", sha256(password, rows[0].salt), typeof sha256(password, rows[0].salt));
-                        if (rows[0].password === sha256(password, rows[0].salt)) {
-                            console.log(rows[0].password === sha256(password, rows[0].salt));
-                            return true
+                        if (rows[0].password === sha256(req.body.password, rows[0].salt)) {
+                            console.log("Attempt was successful");
+                            let token = jwt.sign({ username: req.body.username }, privateKey, {
+                                expiresInt: 60  // Expires in 1 minute
+                            });
+                            res.json({ jwt: token });
+                        } else {
+                            console.log("Attempt was unsuccessful");
+                            res.status(401);
+                            res.json({ error: "Not authorized" });
                         }
                     }
                 }
             )
         }
     });
-}
-
-
-
-// Håndterer login og sender JWT-token tilbake som JSON
-app.post("/login", (req, res) => {
-    let loginTest = loginOk(req.body.username, req.body.password);
-
-    let start = new Date().getTime();
-    let end = start;
-    while(end < start + 10000) {
-        end = new Date().getTime();
-    }
-
-    if (loginTest === true) {
-        console.log("Login attempt was successful");
-
-        let token = jwt.sign({ username: req.body.username }, privateKey, {
-            expiresIn: 60 // Expires in 1 minute
-        });
-
-        res.json({ jwt: token });
-    } else {
-        console.log("Login attempt was unsuccessful");
-
-        res.status(401);
-        res.json({ error: "Not authorized" });
-    }
 });
 
 
