@@ -57,7 +57,6 @@ function loginOk(username, password) {
     pool.getConnection((err, connection) => {
         if (err) {
             console.log("DB error: " + err);
-            return false;
         } else {
             connection.query(
                 "SELECT * FROM users WHERE username = ?", [username],
