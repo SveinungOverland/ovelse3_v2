@@ -100,6 +100,7 @@ class LoginPopper extends Component {
                                         />
                                     </FormControl>
                                     <Button
+                                        type="submit"
                                         disabled={username === "" || password === ""}
                                         fullWidth
                                         variant="raised"
