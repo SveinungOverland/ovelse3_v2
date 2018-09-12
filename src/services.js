@@ -6,6 +6,7 @@ export async function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
+    console.log("Attempting fetch");
     return fetch('/login', requestOptions)
             .then(handleResponse)
             .then(user => {
@@ -24,6 +25,7 @@ export function logout() {
 }
 
 function handleResponse(res) {
+    console.log("Handling response", res);
     return res.text().then(text => {
         const data = text && JSON.parse(text);
         if (!res.ok) {

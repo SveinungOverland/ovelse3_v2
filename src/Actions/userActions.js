@@ -2,6 +2,7 @@ import { login } from '../services';
 
 
 export function loginUser(username, password) {
+    console.log("Asking for login promise");
     return dispatch => {
         dispatch(request());
 

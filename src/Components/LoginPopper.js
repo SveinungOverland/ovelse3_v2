@@ -60,6 +60,7 @@ class LoginPopper extends Component {
     };
 
     handleLogIn = () => {
+        console.log("User pressed login button...");
         const { username, password } = this.state;
         loginUser(username, password);
     };
