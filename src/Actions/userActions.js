@@ -13,7 +13,7 @@ export function loginUser(username, password) {
                 console.log("Login was successful, dispatching success");
                 dispatch(success(user));
             }, error => {
-                console.log("Login was unsuccessful, dispatching failure");
+                console.log("Login was unsuccessful, dispatching failure", error);
                 dispatch(failure(error.toString()));
             })
     };
