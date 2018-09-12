@@ -34,9 +34,7 @@ function handleResponse(res) {
                 logout();
             }
 
-            console.log(error);
-
-            return Promise.reject("Woops");
+            return Promise.reject(res.error);
         }
 
         return data;
