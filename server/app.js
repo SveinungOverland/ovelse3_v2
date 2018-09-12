@@ -75,13 +75,13 @@ app.post("/login", (req, res) => {
                         if (rows[0].password === sha256(req.body.password, rows[0].salt)) {
                             console.log("Attempt was successful");
                             let token = jwt.sign({ username: req.body.username }, privateKey, {
-                                expiresIn: 60  // Expires in 1 minute
+                                expiresIn: 60*30  // Expires in 30 minutes
                             });
-                            res.json({ jwt: token });
+                            res.json({ jwt: token, username: rows[0].username });
                         } else {
                             console.log("Attempt was unsuccessful");
                             res.status(401);
-                            res.json({ error: "Not authorized" });
+                            res.json({ error: "Wrong username or password" });
                         }
                     }
                 }
