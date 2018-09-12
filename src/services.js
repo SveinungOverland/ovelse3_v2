@@ -34,8 +34,9 @@ function handleResponse(res) {
                 logout();
             }
 
-            const error = (data && data.message) || res.statusText;
-            return Promise.reject(error);
+            console.log(error);
+
+            return Promise.reject("Woops");
         }
 
         return data;

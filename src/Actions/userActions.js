@@ -13,8 +13,8 @@ export function loginUser(username, password) {
                 console.log("Login was successful, dispatching success");
                 dispatch(success(user));
             }, error => {
-                console.log("Login was unsuccessful, dispatching failure", error.body, error);
-                dispatch(failure("Something went wrong"));
+                console.log("Login was unsuccessful, dispatching failure");
+                dispatch(failure(error));
             })
     };
 
