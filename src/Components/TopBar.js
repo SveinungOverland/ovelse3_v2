@@ -41,8 +41,6 @@ class TopBar extends Component {
     // TODO: LoginPopper needs a handleLogin Prop
 
     render() {
-        console.log(this.props.user);
-        console.log(this.props);
         return (
             <div className={this.props.classes.root}>
                 <AppBar position="static">
@@ -53,7 +51,7 @@ class TopBar extends Component {
                         <Typography variant="title" color="inherit" className={this.props.classes.grow}>
                             News
                         </Typography>
-                        <LoginPopper />
+                        <LoginPopper error={this.props.user.error}/>
                     </Toolbar>
                 </AppBar>
             </div>
