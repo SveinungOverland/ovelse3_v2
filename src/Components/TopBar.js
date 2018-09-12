@@ -36,11 +36,13 @@ const mapStateToProps = state => {
 };
 
 
-
 class TopBar extends Component {
+
+    // TODO: LoginPopper needs a handleLogin Prop
 
     render() {
         console.log(this.props.user);
+        console.log(this.props);
         return (
             <div className={this.props.classes.root}>
                 <AppBar position="static">
