@@ -14,7 +14,7 @@ export function loginUser(username, password) {
                 dispatch(success(user));
             }, error => {
                 console.log("Login was unsuccessful, dispatching failure");
-                dispatch(failure(JSON.parse(error).error));
+                dispatch(failure(JSON.parse(error.body).error));
             })
     };
 
