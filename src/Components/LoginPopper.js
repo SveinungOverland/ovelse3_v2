@@ -15,6 +15,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 
 // IMPORT REDUX ACTIONS
+import { connect } from 'react-redux';
 import { loginUser } from '../Actions/userActions';
 
 
@@ -62,7 +63,7 @@ class LoginPopper extends Component {
     handleLogIn = () => {
         console.log("User pressed login button...");
         const { username, password } = this.state;
-        loginUser(username, password);
+        this.props.dispatch(loginUser(username, password));
     };
 
     render() {
@@ -123,4 +124,4 @@ class LoginPopper extends Component {
     }
 }
 
-export default withStyles(styles)(LoginPopper);
+export default connect()(withStyles(styles)(LoginPopper));
