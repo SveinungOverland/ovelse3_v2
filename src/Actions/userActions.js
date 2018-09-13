@@ -1,7 +1,7 @@
 import { login } from '../services';
 
 
-export function loginUser(username, password) {
+export function loginUser(username, password, callback) {
     return dispatch => {
         console.log("Dispatching request");
         dispatch(request());

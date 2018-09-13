@@ -1,7 +1,6 @@
 export default function reducer(state = {
     user: {
-        username: "",
-        notifications: [],
+        username: 'Create user / Login',
     },
     fetched: false,
     fetching: false,

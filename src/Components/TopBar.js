@@ -10,9 +10,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 //REDUX
 import { connect } from 'react-redux';
+import { loginUser } from '../Actions/userActions';
 
 
-import LoginPopper from '../Components/LoginPopper';
+import LoginPaper from './TopBarDummies/LoginPaper';
+import UserPaper from './TopBarDummies/UserPaper';
+import GenericPopper from './GenericPopper';
 
 
 const styles = {
@@ -41,17 +44,27 @@ class TopBar extends Component {
     // TODO: LoginPopper needs a handleLogin Prop
 
     render() {
+        const { user, classes, dispatch } = this.props;
+        console.log(user);
         return (
-            <div className={this.props.classes.root}>
+            <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
+                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="title" color="inherit" className={this.props.classes.grow}>
                             News
                         </Typography>
-                        <LoginPopper error={this.props.user.error}/>
+                            {!user.fetched ?
+                                <GenericPopper id="login" text={user.user.username}>
+                                    <LoginPaper error={user.error} handleLogin={(username, password) => dispatch(loginUser(username, password))} />
+                                </GenericPopper>
+                                :
+                                <GenericPopper id="user" text={"Hello, " + user.user.username}>
+                                    <UserPaper user={user} />
+                                </GenericPopper>
+                            }
                     </Toolbar>
                 </AppBar>
             </div>
